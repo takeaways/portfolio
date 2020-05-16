@@ -363,7 +363,7 @@ p {
 }
 
 .project {
-	width: 280px;
+	width: 600px;
 	height: 250px;
 	margin: 2px;
 	background-color: var(--color-light-white);
@@ -394,7 +394,17 @@ p {
 	opacity: 0;
 	transform: translateY(10px);
 	transition: all var(--animation-duration) ease-in;
+	/*  */
 }
+
+.project__description ul {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	overflow: auto;
+	white-space: nowrap;
+}
+
 .project:hover .project__description {
 	opacity: 0.8;
 	transform: translateY(0);
@@ -456,6 +466,7 @@ p {
 }
 .contact__email,
 .contact__title,
+.contact__phone,
 .contact__rights {
 	color: var(--color-white);
 }
