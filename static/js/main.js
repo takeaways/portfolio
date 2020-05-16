@@ -13,6 +13,8 @@
     });
 
 
+
+
     //Handle scrolling when tapping on the navbar menu
     const navbarMenu = document.querySelector('.navbar__menu');
     navbarMenu.addEventListener('click', (e) => {
@@ -23,6 +25,11 @@
         }
         _scrollIntoView(link)
     });
+    //Navbar toggle button for screen
+    const navbarToggleBtn = document.querySelector('.navbar__toggle-btn');
+    navbarToggleBtn.addEventListener('click', () => {
+        navbarMenu.classList.toggle('open')
+    })
 
     // Handle clicl on "contact me" button on home
     const contactBtn = document.querySelector('.home__contact');
@@ -49,7 +56,37 @@
     });
     arrowUp.addEventListener('click', () => {
         _scrollIntoView("#home")
+    });
+
+    //Projects
+    const workBtnContainer = document.querySelector('.work__categories');
+    const projectContainer = document.querySelector('.work__projects');
+    const projects = document.querySelectorAll('.project');
+    workBtnContainer.addEventListener('click', (e) => {
+        const filter = e.target.dataset.filter || e.target.parentNode.dataset.filter;
+        if (filter == null) {
+            return;
+        }
+
+        const active = document.querySelector('.category__btn.selected');
+        if (active) {
+            active.classList.remove('selected');
+            e.target.classList.add('selected');
+        }
+        projectContainer.classList.add('anim-out');
+
+        setTimeout(() => {
+            projects.forEach(p => {
+                if (filter === "*" || filter === p.dataset.type) {
+                    p.classList.remove('invisible');
+                } else {
+                    p.classList.add('invisible')
+                }
+            });
+            projectContainer.classList.remove('anim-out');
+        }, 300)
     })
+
 
 
 
