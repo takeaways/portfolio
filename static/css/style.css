@@ -587,3 +587,12 @@ p {
 		order: 1;
 	}
 }
+
+/* change btn */
+#changeBtn {
+	color: var(--color-white);
+}
+#changeBtn:hover {
+	cursor: pointer;
+	color: var(--color-dark-white);
+}

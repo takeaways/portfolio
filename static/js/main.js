@@ -12,9 +12,6 @@
         }
     });
 
-
-
-
     //Handle scrolling when tapping on the navbar menu
     const navbarMenu = document.querySelector('.navbar__menu');
     navbarMenu.addEventListener('click', (e) => {
@@ -87,25 +84,36 @@
         }, 300)
     })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // __Inner Function__
     function _scrollIntoView(selector) {
         const scrollTo = document.querySelector(selector);
         scrollTo.scrollIntoView({ behavior: 'smooth' });
+    }
+
+
+
+    // __change page function__
+    const changeBtn = document.querySelector("#changeBtn");
+    changeBtn.addEventListener('click', changeView)
+    function changeView() {
+        const portfolio = document.querySelector("#portfolio");
+        const blog = document.querySelector("#blog");
+        const toggleBtn = document.querySelector("#toggleBtn");
+        const changeBtn = document.querySelector("#changeBtn");
+
+        if (portfolio.innerHTML) {
+            localStorage.setItem('portfolio', portfolio.innerHTML);
+            portfolio.innerHTML = ""
+            blog.classList.add("active")
+            toggleBtn.style.display = "none";
+            changeBtn.innerHTML = "Show Portfolio";
+        } else {
+            blog.classList.remove("active")
+            portfolio.innerHTML = localStorage.getItem('portfolio');
+            toggleBtn.style.display = "block";
+            changeBtn.innerHTML = "Start Blog";
+        }
+
     }
 
 

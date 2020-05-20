@@ -1,0 +1,9 @@
+#blog {
+	height: 100vh;
+	padding-top: 100px;
+	display: none;
+}
+
+#blog.active {
+	display: block;
+}
