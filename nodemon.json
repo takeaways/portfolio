@@ -1,0 +1,4 @@
+{
+	"exec": "node init.js",
+	"ext": "js json"
+}

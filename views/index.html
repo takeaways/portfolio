@@ -9,7 +9,7 @@
 			content="Portfolio for world-renowned sorfware engineer Geonil"
 		/>
 		<meta name="description" content="Geonil Jang" />
-		<link rel="icon" type="image/png" href="static/images/mylogo.png" />
+		<link rel="icon" type="image/png" href="images/mylogo.png" />
 		<script
 			src="https://kit.fontawesome.com/c65a1bdc14.js"
 			crossorigin="anonymous"
@@ -18,21 +18,23 @@
 			href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
 			rel="stylesheet"
 		/>
-		<link rel="stylesheet" href="static/css/style.css" />
-		<link rel="stylesheet" href="static//css/blog.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/blog.css" />
 		<script defer src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-		<script defer src="static/js/main.js"></script>
-		<script defer src="static/js/Model/BlogModel.js"></script>
+		<script defer src="js/main.js"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script defer type="module" src="js/Model/BlogModel.js"></script>
 	</head>
 	<body>
 		<!-- NavBar -->
 		<nav id="navbar">
 			<div class="navbar__logo">
-				<img src="static/images//mylogo.png" alt="logo" />
+				<img src="images/mylogo.png" alt="logo" />
 				<span id="changeBtn">Start Blog</span>
 			</div>
 			<div class="navbar__menul">
 				<ul class="navbar__menu">
+					<a href="/login">login</a>
 					<li data-link="#home" class="navbar__menu__item active">Home</li>
 					<li data-link="#about" class="navbar__menu__item">About</li>
 					<li data-link="#skills" class="navbar__menu__item">Skills</li>
@@ -53,11 +55,7 @@
 				<!-- Home -->
 				<section id="home">
 					<div class="home__container">
-						<img
-							src="/static/images/my.png"
-							alt="my photo"
-							class="home__avatar"
-						/>
+						<img src="images/my.png" alt="my photo" class="home__avatar" />
 						<h1 class="home__title">
 							Hello,<br />
 							I'm one of the JS developers<br />
@@ -83,7 +81,7 @@
 					<div class="about__majors">
 						<div class="major">
 							<div class="major__icon">
-								<img src="/static/images/ts.png" alt="typescript" />
+								<img src="images/ts.png" alt="typescript" />
 							</div>
 							<h2 class="major__title">Typescript</h2>
 							<div class="major__description">Using Js with Typescript.</div>
@@ -108,7 +106,7 @@
 					<div class="about__jobs">
 						<div class="job">
 							<img
-								src="/static/images/jobs/happytalk.png"
+								src="images/jobs/happytalk.png"
 								alt="happytalk"
 								class="job__logo"
 							/>
@@ -119,7 +117,7 @@
 						</div>
 						<div class="job">
 							<img
-								src="/static/images/jobs/npay.png"
+								src="images/jobs/npay.png"
 								alt="happytalk"
 								class="job__logo"
 							/>
@@ -130,7 +128,7 @@
 						</div>
 						<div class="job">
 							<img
-								src="/static/images/jobs/spring.png"
+								src="images/jobs/spring.png"
 								alt="happytalk"
 								class="job__logo"
 							/>
@@ -238,7 +236,7 @@
 								target="blank"
 								id="p1"
 							>
-								<img src="static/images/jobs/happytalk.png" alt="project1" />
+								<img src="images/jobs/happytalk.png" alt="project1" />
 								<div class="project__description">
 									<h3>[챗봇 V2 버전 리뉴얼 프로젝트]</h3>
 									<ul>
@@ -271,7 +269,7 @@
 								id="p2"
 							>
 								<img
-									src="static/images/jobs/happytalk.png"
+									src="images/jobs/happytalk.png"
 									alt="project1"
 									class="project__img"
 								/>
@@ -302,7 +300,7 @@
 								id="p3"
 							>
 								<img
-									src="static/images/jobs/npay.png"
+									src="images/jobs/npay.png"
 									alt="project1"
 									class="project__img"
 								/>
@@ -335,7 +333,7 @@
 								id="p4"
 							>
 								<img
-									src="static/images/jobs/npay.png"
+									src="images/jobs/npay.png"
 									alt="project1"
 									class="project__img"
 								/>
@@ -370,7 +368,7 @@
 								id="p5"
 							>
 								<img
-									src="static/images/jobs/spring.png"
+									src="images/jobs/spring.png"
 									alt="project1"
 									class="project__img"
 								/>
@@ -405,7 +403,7 @@
 						<div class="testimonials">
 							<div class="testimonial">
 								<img
-									src="static/images/my.png"
+									src="images/my.png"
 									alt="phoo"
 									class="testimonial__avatar"
 								/>
@@ -430,7 +428,7 @@
 									<p class="name"><a href="">gi</a>/happytalk</p>
 								</div>
 								<img
-									src="static/images/my.png"
+									src="images/my.png"
 									alt="phoo"
 									class="testimonial__avatar"
 								/>
@@ -460,7 +458,82 @@
 				</button>
 			</section>
 			<section id="blog">
-				{{msg}}
+				<form id="blogForm" v-on:submit.prevent="onSubmit">
+					<label
+						>제목 :<br />
+						<input
+							v-model="title"
+							type="text"
+							class="blog__title--input"
+							maxlength="10"
+							autocomplete
+					/></label>
+					<label
+						>내용 :<br />
+						<textarea
+							v-model="content"
+							name=""
+							id=""
+							rows="10"
+							class="blog__content--textarea"
+						></textarea>
+					</label>
+					<label
+						>작성자 :<br />
+						<input
+							v-model="author"
+							type="text"
+							class="blog__author--input"
+							maxlength="5"
+							autocomplete
+					/></label>
+					<label>
+						비밀번호 :<br />
+						<input
+							v-model="password"
+							type="password"
+							class="blog__author--input"
+							maxlength="5"
+							autocomplete
+					/></label>
+					<button type="submit" class="blog__btn">
+						등록
+					</button>
+				</form>
+
+				<section id="post">
+					<div v-if="posts.length">
+						<ul class="post__list">
+							<li class="post__list--item" v-for="item in posts">
+								<div class="card" v-bind:data-id="item.id">
+									<div class="card__header">
+										<span class="card__title">{{item.title}}</span>
+										<span class="cart__author">작성자 : {{item.author}}</span>
+									</div>
+									<p class="card__content">
+										{{item.content}}
+									</p>
+									<label>
+										비밀번호 :<br />
+										<input
+											v-model="deletePassword"
+											type="password"
+											class="blog__author--input"
+											maxlength="5"
+											autocomplete
+									/></label>
+									<div class="card__footer">
+										<button>수정</button>
+										<button v-on:click="deletePost(item.id)">제거</button>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div v-else>
+						포스트가 없습니다.
+					</div>
+				</section>
 			</section>
 		</main>
 	</body>

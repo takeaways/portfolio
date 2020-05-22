@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Geonil's Portfolio</title>
+		<meta
+			name="description"
+			content="Portfolio for world-renowned sorfware engineer Geonil"
+		/>
+		<meta name="description" content="Geonil Jang" />
+		<link rel="icon" type="image/png" href="images/mylogo.png" />
+		<script
+			src="https://kit.fontawesome.com/c65a1bdc14.js"
+			crossorigin="anonymous"
+		></script>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/login.css" />
+		<script defer src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<!-- <script defer src="js/main.js"></script> -->
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script defer type="module" src="js/Model/LogInModel.js"></script>
+	</head>
+	<body>
+		<!-- NavBar -->
+		<nav id="navbar">
+			<div class="navbar__logo">
+				<img src="images/mylogo.png" alt="logo" />
+				<span id="changeBtn">Start Blog</span>
+			</div>
+			<div class="navbar__menul">
+				<ul class="navbar__menu">
+					<a href="/login">login</a>
+					<li data-link="#home" class="navbar__menu__item active">Home</li>
+					<li data-link="#about" class="navbar__menu__item">About</li>
+					<li data-link="#skills" class="navbar__menu__item">Skills</li>
+					<li data-link="#work" class="navbar__menu__item">My work</li>
+					<li data-link="#testimpnials" class="navbar__menu__item">
+						Testimonial
+					</li>
+					<li data-link="#contact" class="navbar__menu__item">Contact</li>
+				</ul>
+			</div>
+			<!-- Toggle button -->
+			<button id="toggleBtn" class="navbar__toggle-btn">
+				<i class="fas fa-hamburger"></i>
+			</button>
+		</nav>
+		<!-- login form -->
+		<section id="login">
+			<form class="login__form" v-on:submit.prevent="onLogin">
+				<label
+					>email<br />
+					<input v-model="email" type="text" class="login__form--input" />
+				</label>
+				<label
+					>비밀번호<br />
+					<input
+						v-model="password"
+						type="password"
+						class="login__form--input"
+						autocomplete /></label
+				><br />
+				<button type="submit">로그인</button>
+			</form>
+		</section>
+	</body>
+</html>

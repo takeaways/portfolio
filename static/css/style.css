@@ -162,7 +162,7 @@ p {
 
 /* Home */
 #home {
-	background: url('/static/images/home_background.png') center/cover no-repeat;
+	background: url('/images/home_background.png') center/cover no-repeat;
 	padding: 40px;
 	padding-top: 120px;
 	text-align: center;

@@ -1,9 +1,162 @@
+:root {
+	/* Color */
+
+	--color-white: #ffffff;
+
+	--color-light-white: #eeeeee;
+
+	--color-dark-white: #bdbdbd;
+
+	--color-pink: #fe918d;
+
+	--color-dark-pink: #ff6863;
+
+	--color-black: #4d4d4d;
+
+	--color-dark-grey: #4d4d4d;
+
+	--color-grey: #616161;
+
+	--color-light-grey: #7c7979;
+
+	--color-blue: #73aace;
+
+	--color-yellow: #fff7d1;
+
+	--color-orange: #feb546;
+
+	--color-black: #000000;
+
+	/* Font size */
+
+	--font-large: 48px;
+
+	--font-medium: 28px;
+
+	--font-regular: 18px;
+
+	--font-small: 16px;
+
+	--font-micro: 14px;
+
+	/* Font weight */
+
+	--weight-bold: 700;
+
+	--weight-semi-bold: 600;
+
+	--weight-regular: 400;
+
+	/* Size */
+	--size-border-radius: 4px;
+
+	/* Animation */
+	--animation-duration: 250ms;
+}
+
+/* BLOG */
 #blog {
 	height: 100vh;
 	padding-top: 100px;
+	background-color: var(--color-white);
 	display: none;
 }
 
 #blog.active {
 	display: block;
+}
+
+#blogForm {
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	width: 480px;
+	padding: 12px;
+	background-color: var(--color-yellow);
+	border-radius: 10px;
+}
+
+#blogForm label {
+	width: 100%;
+	padding: 12px;
+	font-weight: var(--weight-bold);
+	color: var(--color-dark-white);
+}
+
+.blog__title--input,
+.blog__content--textarea,
+.blog__author--input,
+.blog__btn {
+	width: 100%;
+	border-radius: 5px;
+	outline: none;
+	border: none;
+}
+.blog__author--input,
+.blog__title--input {
+	padding-left: 15px;
+}
+
+.blog__btn,
+.blog__author--input,
+.blog__title--input {
+	height: 2rem;
+}
+
+.blog__content--textarea {
+	resize: none;
+	padding: 15px;
+}
+
+.blog__btn {
+	background-color: var(--color-orange);
+	color: var(--color-white);
+	font-weight: var(--weight-bold);
+}
+
+/* POST */
+.card {
+	margin: auto;
+	width: 480px;
+	height: 200px;
+	padding: 12px;
+	background-color: var(--color-yellow);
+	border-radius: 10px;
+	margin-bottom: 2rem;
+	color: var(--color-blue);
+	position: relative;
+}
+
+.card__header {
+	width: 100%;
+	font-size: var(--font-medium);
+	display: flex;
+	justify-content: space-between;
+}
+
+.card__content {
+	width: 100%;
+	max-height: 100px;
+	overflow-wrap: break-word;
+	overflow: auto;
+}
+
+.card__footer {
+	width: calc(100% - 24px);
+	display: flex;
+	position: absolute;
+	bottom: 0;
+	height: 30px;
+	justify-content: space-evenly;
+}
+
+.card__footer > button {
+	width: 200px;
+	color: var(--color-light-white);
+	font-size: var(--font-regular);
+	font-weight: var(--weight-bold);
+	background-color: var(--color-orange);
+	border-radius: var(--size-border-radius);
 }
