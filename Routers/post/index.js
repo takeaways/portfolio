@@ -13,7 +13,7 @@ const upload = multer({
             cb(null, basename + new Date().valueOf() + ext);
         }
     }),
-    limits: { fileSize: 20 * 1024 * 1024 }
+    limits: {fileSize: 20 * 1024 * 1024}
 });
 
 const postController = require("../../Controllers/post");
@@ -22,41 +22,71 @@ const router = express.Router();
 
 
 router.post("/", upload.single('file'), async (req, res, next) => {
+    try {
 
-    const data = req.body;
-    const file = req.file;
+        const data = req.body;
+        const file = req.file;
 
-    const post = {
-        ...data
-    };
+        const post = {
+            ...data
+        };
 
-    if(file && file.filename){
-        post.src = file.filename
+        if (file && file.filename) {
+            post.src = file.filename
+        }
+
+        const result = await postController.createPost({post});
+        return res.jsend.success(result);
+
+    } catch (e) {
+        res.jsend.error({
+            message: e.message
+        });
     }
-
-    const result = await postController.createPost({post});
-    return res.json(result);
-
 });
 
+//query postId
 router.get("/", async (req, res, next) => {
-    const result = await postController.getPost();
-    return res.json(result);
+    try {
+
+        const postId = req.query.postId;
+        const result = await postController.getPost({postId});
+        return res.jsend.success(result);
+
+    } catch (e) {
+        res.jsend.error({
+            message: e.message
+        });
+    }
 });
 
-router.put("/:postId", upload.single('file'), async (req, res, next) => {
-    const password = req.body.password;
-    const check = await postController.check(password, req.params.postId);
+router.put("/", upload.single('file'), async (req, res, next) => {
 
-    if (!result) {
-        res.json({
-            message: "hmmm"
-        })
+    try {
+
+
+        const data = req.body;
+        const file = req.file;
+        const postId= req.query.postId;
+
+
+        const post = {
+            ...data
+        };
+
+        if (file && file.filename) {
+            post.src = file.filename
+        }
+
+
+        const result = await postController.updatePost({post:post,postId});
+        return res.jsend.success(result);
+
+    } catch (e) {
+        res.jsend.error({
+            message: e.message
+        });
     }
-
-    return res.json({
-        deleted: req.params.postId
-    })
 });
 
 router.delete("/:postId", async (req, res, next) => {

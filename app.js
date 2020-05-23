@@ -40,7 +40,7 @@ app.use('/', express.static('Uploads'));
 // app.get("/login", (req, res) => {
 //     res.render("login.html")
 // })
-// app.use("/user", userRouter);
+app.use("/user", userRouter);
 app.use("/post", postRouter);
 
 
