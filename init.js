@@ -5,8 +5,8 @@ dotenv.config();
 
 dbSync().then(() => {
     console.log('Sync Database..');
-    app.listen(7000, () => {
-        console.log("server start port 7000");
+    app.listen(2080, () => {
+        console.log("server start port 2080");
     });
 });
 
