@@ -122,37 +122,10 @@ module.exports = {
 
             const query = {
                 title: post.title, content: post.content,
+                tag: post.tag,
             };
 
-            const existPost = await db.Post.findOne({
-                where: {
-                    id: postId
-                },
-                include: [{
-                    model: db.Image
-                }]
-            });
-            const jsonPost = existPost.toJSON();
-            const imgId = jsonPost.Images[0].id;
 
-            if (imgId) {
-                if (post.src) {
-                    console.log("imgID: ", imgId)
-                    const updated = await db.Image.update({
-                        src: post.src
-                    }, {
-                        where: {
-                            id: imgId.toString()
-                        }
-                    });
-                    console.log("updated :", updated)
-                }
-            } else {
-                const newImg = await db.Image.create({
-                    src: post.src
-                });
-                await post.addImage(newImg);
-            }
 
             await db.Post.update(query, { where: { id: postId } });
 
@@ -160,10 +133,6 @@ module.exports = {
                 where: {
                     id: postId
                 },
-                include: [{
-                    model: db.Image,
-                    attributes: ['src']
-                }],
                 attributes: ['id', 'author', 'title', 'content', 'tag']
             });
         } catch (error) {
