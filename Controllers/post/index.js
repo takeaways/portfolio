@@ -84,6 +84,7 @@ module.exports = {
                 title: post.title,
                 content: post.content,
                 author: post.author,
+                tag: post.tag,
                 password: hashed
             };
 
@@ -102,7 +103,7 @@ module.exports = {
                     model: db.Image,
                     attributes: ['src']
                 }],
-                attributes: ['id', 'author', 'title', 'content']
+                attributes: ['id', 'author', 'title', 'content', 'tag']
             })
             // { title: 'asd', content: 'asd', author: 'asd', password: 'asd' ,filename}
         } catch (error) {
@@ -163,7 +164,7 @@ module.exports = {
                     model: db.Image,
                     attributes: ['src']
                 }],
-                attributes: ['id', 'author', 'title', 'content']
+                attributes: ['id', 'author', 'title', 'content', 'tag']
             });
         } catch (error) {
             throw error;
