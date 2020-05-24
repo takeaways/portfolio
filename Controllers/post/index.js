@@ -21,10 +21,6 @@ const _getPosts = async () => {
             // ['name', 'ASC'],
         ],
         attributes: ['id', 'author', 'title', 'content', "tag"],
-        include: [{
-            model: db.Image,
-            attributes: ['src']
-        }]
     })
 }
 const _check = async ({ postId, password }) => {
