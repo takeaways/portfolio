@@ -20,7 +20,7 @@ const _getPosts = async () => {
             ['id', 'DESC'],
             // ['name', 'ASC'],
         ],
-        attributes: ['id', 'author', 'title', 'content'],
+        attributes: ['id', 'author', 'title', 'content', "tag"],
         include: [{
             model: db.Image,
             attributes: ['src']
