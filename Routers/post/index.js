@@ -13,7 +13,7 @@ const upload = multer({
             cb(null, basename + new Date().valueOf() + ext);
         }
     }),
-    limits: {fileSize: 20 * 1024 * 1024}
+    limits: { fileSize: 20 * 1024 * 1024 }
 });
 
 const postController = require("../../Controllers/post");
@@ -35,7 +35,7 @@ router.post("/", upload.single('file'), async (req, res, next) => {
             post.src = file.filename
         }
 
-        const result = await postController.createPost({post});
+        const result = await postController.createPost({ post });
         return res.jsend.success(result);
 
     } catch (e) {
@@ -50,7 +50,7 @@ router.get("/", async (req, res, next) => {
     try {
 
         const postId = req.query.postId;
-        const result = await postController.getPost({postId});
+        const result = await postController.getPost({ postId });
         return res.jsend.success(result);
 
     } catch (e) {
@@ -60,14 +60,14 @@ router.get("/", async (req, res, next) => {
     }
 });
 
-router.put("/", upload.single('file'), async (req, res, next) => {
+router.put("/:postId", upload.single('file'), async (req, res, next) => {
 
     try {
 
 
         const data = req.body;
         const file = req.file;
-        const postId= req.query.postId;
+        const postId = req.params.postId;
 
 
         const post = {
@@ -79,7 +79,7 @@ router.put("/", upload.single('file'), async (req, res, next) => {
         }
 
 
-        const result = await postController.updatePost({post:post,postId});
+        const result = await postController.updatePost({ post: post, postId });
         return res.jsend.success(result);
 
     } catch (e) {
@@ -90,12 +90,28 @@ router.put("/", upload.single('file'), async (req, res, next) => {
 });
 
 router.delete("/:postId", async (req, res, next) => {
-    const postId = req.params.postId;
-    const password = req.params.password
+    try {
+        const postId = req.params.postId;
+        const password = req.body.password
 
-    const check = await postController.check(password, req.params.postId);
-    const result = await postController.deletePost(req.params.postId)
+        const result = await postController.deletePost({ postId, password })
+        return res.jsend.success(result)
+    } catch (error) {
+        res.jsend.error({
+            message: error.message
+        })
+    }
 
+})
+
+router.post("/image", upload.single('file'), (req, res, next) => {
+    const file = req.file;
+    if (!file) {
+        res.jsend.error({
+            message: "Fail Upload Image."
+        })
+    }
+    return res.jsend.success(file.filename)
 })
 
 

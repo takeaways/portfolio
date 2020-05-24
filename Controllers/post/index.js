@@ -7,7 +7,7 @@ const postMessage = {
     notMatchedPassword: "Not Matched Password."
 };
 
-const _getPostById = async ({postId}) => {
+const _getPostById = async ({ postId }) => {
     return db.Post.findOne({
         where: {
             id: postId
@@ -27,7 +27,7 @@ const _getPosts = async () => {
         }]
     })
 }
-const _check = async ({postId, password}) => {
+const _check = async ({ postId, password }) => {
     const post = await db.Post.findOne({
         where: {
             id: postId
@@ -37,7 +37,9 @@ const _check = async ({postId, password}) => {
         throw Error(postMessage.notFoundPost);
     }
 
-    const jsonPost =  post.toJSON();
+    const jsonPost = post.toJSON();
+    console.log(jsonPost)
+    console.log(password)
     const match = await bcrypt.compareSync(password, jsonPost.password);
     return !!match;
 };
@@ -45,36 +47,36 @@ const _check = async ({postId, password}) => {
 
 module.exports = {
 
-    getPost: async ({postId}) => {
+    getPost: async ({ postId }) => {
         try {
             if (postId) {
-                return await _getPostById({postId});
+                return await _getPostById({ postId });
             }
             return await _getPosts();
         } catch (error) {
             throw error;
         }
     },
-    deletePost: async ({postId, password}) => {
+    deletePost: async ({ postId, password }) => {
         try {
 
             if (!password) {
                 throw Error(postMessage.invalidPassword);
             }
 
-            const match = await _check({postId, password});
+            const match = await _check({ postId, password });
             if (!match) {
                 throw Error(postMessage.notMatchedPassword)
             }
 
             return await db.Post.destroy({
-                where: {id: postId}
+                where: { id: postId }
             });
         } catch (error) {
             throw error;
         }
     },
-    createPost: async ({post}) => {
+    createPost: async ({ post }) => {
         try {
 
             const hashed = await bcrypt.hash(post.password, 12);
@@ -82,7 +84,7 @@ module.exports = {
                 title: post.title,
                 content: post.content,
                 author: post.author,
-                password:hashed
+                password: hashed
             };
 
             const newPost = await db.Post.create(query);
@@ -107,11 +109,11 @@ module.exports = {
             throw error;
         }
     },
-    updatePost: async ({post, postId}) => {
+    updatePost: async ({ post, postId }) => {
 
         try {
 
-            const match = await _check({postId, password: post.password});
+            const match = await _check({ postId, password: post.password });
 
             if (!match) {
                 throw Error(postMessage.notMatchedPassword);
@@ -134,7 +136,7 @@ module.exports = {
 
             if (imgId) {
                 if (post.src) {
-                    console.log("imgID: ",imgId)
+                    console.log("imgID: ", imgId)
                     const updated = await db.Image.update({
                         src: post.src
                     }, {
@@ -142,7 +144,7 @@ module.exports = {
                             id: imgId.toString()
                         }
                     });
-                    console.log("updated :",updated)
+                    console.log("updated :", updated)
                 }
             } else {
                 const newImg = await db.Image.create({
@@ -151,7 +153,7 @@ module.exports = {
                 await post.addImage(newImg);
             }
 
-            await db.Post.update(query, {where:{id: postId}});
+            await db.Post.update(query, { where: { id: postId } });
 
             return db.Post.findOne({
                 where: {
